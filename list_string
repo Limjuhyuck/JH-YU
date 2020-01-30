@@ -1,0 +1,32 @@
+list1 = [1, 9, 8, 5, 0, 6]
+str1 = 'hello world'
+print(5 in list1)
+print('e' in str1)
+# 결과
+# True
+# True
+
+# list 와 string 서로 변환이 가능하다.
+char = list('hello')
+print(char)
+# 결과
+# ['h', 'e', 'l', 'l', 'o']
+
+# string을 list 로
+string1 = "너무 추운 겨울 입니다."
+string1_list = string1.split()
+print(string1_list)
+# 결과
+# ['너무', '추운', '겨울', '입니다.']
+
+# /를 기준으로 string을 list로 나누는 것
+time_str = "20/01/30"
+print(time_str.split('/'))
+# 결과
+# ['20', '01', '30']
+
+# list를 string으로
+time_list = ['20','01','30']
+print('/'.join(time_list))
+# 결과
+# 20/01/30     -> list 에 /를 넣어서 string으로
