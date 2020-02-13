@@ -1,0 +1,43 @@
+import cv2
+
+# 사진 불러오기
+img_flower = cv2.imread('flower.jpg', cv2.IMREAD_COLOR) # IMREAD_COLOR는 이미지를 컬러로 읽기
+cv2.imshow('Image Basic', img_flower)                   # 투명한 부분은 무시
+cv2.waitKey(0)
+cv2.imwrite('result_flower.png', img_flower)
+
+# grayscale
+img_gray = cv2.cvtColor(img_flower,cv2.COLOR_BGR2GRAY)
+cv2.imshow('Image Gray',img_gray)
+cv2.waitKey(0)
+cv2.imwrite('flower_gray.png',img_gray)
+
+# 이미지 크기, 픽셀 확인
+Image = cv2.imread('result_flower.png')
+
+print(Image.shape)    # 결과 : (194, 259, 3)
+print(Image.size)     # 결과 : 150738
+# px = Image[300, 300]
+# print(px)           오류 : [IndexError: index 300 is out of bounds for axis 0 with size 194]
+
+# 특정 부분(픽셀) 색상 변경
+Image = cv2.imread('result_flower.png')
+Image[0:130, 0:130] = [120, 0, 0] # 여기서 [0,0,0] 은 픽셀 [blue, green, red]를 모두 0으로 바꾸는 것
+cv2.imshow('Image black', Image)  # 왼쪽 상단 사각형으로 파란색 화면
+cv2.waitKey(0)
+
+# 특정 색상 제거
+image = cv2.imread('flower.jpg')
+image[:, :, 0] = 0   # Blue = 0    -> 주황계열 화면
+cv2.imshow('Image', image)
+cv2.waitKey(0)
+
+image = cv2.imread('flower.jpg')
+image[:, :, 1] = 0   # Green = 0   -> 자주계열 화면
+cv2.imshow('Image', image)
+cv2.waitKey(0)
+
+image = cv2.imread('flower.jpg')
+image[:, :, 2] = 0   # Red = 0   -> 청록계열 화면
+cv2.imshow('Image', image)
+cv2.waitKey(0)
