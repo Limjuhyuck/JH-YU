@@ -1,0 +1,36 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('adapt.PNG',0)
+
+
+ret, th1 = cv2.threshold(img,127,255,cv2.THRESH_BINARY)
+
+# Threshold 는 임계값을 전체 이미지에 적용하여 처리하기 때문에 하나의 이미지에
+# 음영이 다르면 일부영역이 모두 흰색 또는 검정색으로 보여지게 되는 문제점이 있다.
+# 이것을 해결하기 위해 adaptiveThreshold 사용. 작은 영역별로 thresholding 하는 것.
+
+th2 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_MEAN_C,\
+cv2.THRESH_BINARY,15,2)
+th3 = cv2.adaptiveThreshold(img,255,cv2.ADAPTIVE_THRESH_GAUSSIAN_C,\
+cv2.THRESH_BINARY,15,2)
+# src = grayscale image
+# maxValue = 임계값
+# adaptiveMethod = thrsholding value를 결정하는 계산 방법 (cv2.ADAPTIVE_THRESH_MEAN_C, cv2.ADAPTIVE_GAUSSIAN_C )
+# thresholdType = threshold type
+# blockSize = thresholding을 적용할 영역 사이즈
+# C = 평균이나 가중평균에서 차감할 값
+
+
+
+titles = ['Original','Global','Mean','Gaussian']
+
+images = [img,th1,th2,th3]
+
+for i in range(4):
+	plt.subplot(2,2,i+1),plt.imshow(images[i],'gray')
+	plt.title(titles[i])
+	plt.xticks([]),plt.yticks([])
+
+plt.show()
