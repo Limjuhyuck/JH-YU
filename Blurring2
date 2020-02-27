@@ -1,0 +1,30 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot as plt
+
+img = cv2.imread('lena.jpg')
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
+
+
+
+kernel = np.ones((5,5), np.float32)/25 # 커널이 5x5, 25로 나누기
+dst = cv2.filter2D(img, -1, kernel) #destination image , 출력 이미지
+blur = cv2.blur(img, (5, 5))
+gblur = cv2.GaussianBlur(img, (5, 5), 0) #5x5 커널, 16으로 나누기
+median = cv2.medianBlur(img, 5) # 각 픽셀을 해당 픽셀 주변 값으로 대체하는 것, Salt and pepper noise 제거에 유용하다.
+bilateralFilter = cv2. bilateralFilter(img, 9, 75, 75) # 엣지와 노이즈를 줄여서 부드러운 영상을 만들때 사용.
+# src = 입력 이미지
+# dst = 출력 이미지
+# d = 필터링에 이용하는 이웃한 픽셀의 지름을 정의, 불가능한 경우 sigma space 사용
+# sigmaColor = 컬러 공간의 시그마 공간 정의, 클수록 이웃한 픽셀과 기준 색상의 영향이 커진다.(블러)
+# sigamSpace = 시그마 필터를 조정한다. 값이 클수록 긴밀하게 주변 픽셀에 영향을 미친다.
+
+titles = ['image','2D Convolution', 'blur', 'gblur', 'median', 'bilateralFilter']
+images = [img, dst, blur, gblur, median, bilateralFilter]
+
+for i in range(6):
+    plt.subplot(3, 3, i+1), plt.imshow(images[i],'gray')
+    plt.title(titles[i])
+    plt.xticks([]),plt.yticks([])
+
+plt.show()
